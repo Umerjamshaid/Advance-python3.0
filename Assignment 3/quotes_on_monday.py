@@ -8,11 +8,6 @@ SMTP_PORT = 587
 GMAIL_USER = "umerjamshaid481@gmail.com"
 GMAIL_PASSWORD = "vtut fiwi gaxh khve"
 
-#function to check if its monday
-def is_monday():
-    today = datetime.today()
-    return today.weekday() == 0
-
 
 def send_email(to_address, subject, message):
     try:
@@ -59,14 +54,5 @@ def check_and_send_wishes():
         print("Emails sent successfully!")
 
 
-
-    
-    if is_monday():
-        print("happy Birthday:")
-    else:
-        print("Its not Monday.")
-
-
 if __name__ == "__main__":
     check_and_send_wishes()
-    is_monday()
