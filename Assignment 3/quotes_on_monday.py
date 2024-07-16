@@ -25,15 +25,20 @@ def send_email(to_address, subject, message):
     except Exception as e:
         print(f"Failed to send email to {to_address}: {e}")
 
-
+def is_monday():
+    return datetime.today().weekday() == 0  # 0 represents Monday
 
 def check_and_send_wishes():
+    if not is_monday():
+        print("Today is not Monday. Emails will not be sent.")
+        return
+    
     today = datetime.today()
     month = today.month
     day = today.day
 
     # Read the birthday CSV file
-    birthdays = pd.read_csv('combined.txt', delimiter=",")
+    birthdays = pd.read_csv('birthdays.csv')
     # birthdays = pd.read_csv('F:\BanoQabil Advanced.Py\Assignment 3\combined.txt', delimiter=",")
 
     for index, row in birthdays.iterrows():
