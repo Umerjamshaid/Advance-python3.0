@@ -37,7 +37,8 @@ def check_and_send_wishes():
     # birthdays = pd.read_csv('F:\BanoQabil Advanced.Py\Assignment 3\combined.txt', delimiter=",")
 
     for index, row in birthdays.iterrows():
-        if row["month"] == month and row["day"] == day:
+        # if row["month"] == month and row["day"] == day:
+            birthdays_today = birthdays[(birthdays["month"] == month) & (birthdays["day"] == day)]
             name = row["name"]
             email = row["email"]
             subject = "Happy Birthday!"
