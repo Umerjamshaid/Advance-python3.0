@@ -25,6 +25,6 @@ print(num_list)
 
 
 
-product_list = reduce(lambda x, y: x*y, num_list, 1)
+product_list = reduce(lambda x, y: x*y, num_list,)
 
 print( "here is the product of the numbers" , product_list)
