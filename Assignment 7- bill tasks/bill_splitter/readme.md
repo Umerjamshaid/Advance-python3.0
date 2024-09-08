@@ -29,6 +29,11 @@ This task splits the total bill amount evenly among all users. Users are require
 ### Output:
 Each user’s share is displayed in an HTML format along with their respective IDs.
 
+[![Screenshot](bill_splitter/images/Screenshot%202024-09-08%20160320.png)](https://github.com/Umerjamshaid/Advance-python3.0/blob/main/Assignment%207-%20bill%20tasks/bill_splitter/images/Screenshot%202024-09-08%20160320.png)
+
+
+
+
 ---
 
 ## Task 2: Uneven Bill Splitting
