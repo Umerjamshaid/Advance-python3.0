@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uneven Bill Splitting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 50%;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .result-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .balance {
+            font-weight: bold;
+        }
+
+        .positive {
+            color: green;
+        }
+
+        .negative {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Uneven Bill Splitting</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="user_ids">User IDs (comma-separated):</label>
+        <input type="text" id="user_ids" name="user_ids" placeholder="e.g. user1, user2, user3" required>
+
+        <label for="contributions">Contributions (comma-separated):</label>
+        <input type="text" id="contributions" name="contributions" placeholder="e.g. 30, 50, 20" required>
+
+        <label for="total_bill_amount">Total Bill Amount:</label>
+        <input type="number" id="total_bill_amount" name="total_bill_amount" placeholder="e.g. 100" required>
+
+        <button type="submit" class="submit-btn">Calculate</button>
+    </form>
+
+    {% if result %}
+        <h3>Result:</h3>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Contributed</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in result %}
+                <tr>
+                    <td>{{ entry.user_id }}</td>
+                    <td>${{ entry.contributed }}</td>
+                    <td class="balance {% if entry.balance > 0 %}positive{% else %}negative{% endif %}">
+                        ${{ entry.balance }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+
+</body>
+</html>

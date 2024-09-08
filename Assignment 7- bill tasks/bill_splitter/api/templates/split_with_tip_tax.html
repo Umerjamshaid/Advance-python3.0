@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Bill Including Tip and Tax</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Split Bill Including Tip and Tax</h2>
+    <!-- Error Message -->
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <!-- Form to Input Data -->
+    <form method="POST" action="{% url 'split_with_tip_tax' %}">
+        {% csrf_token %}
+        <label for="user_ids">User IDs (comma separated):</label>
+        <input type="text" id="user_ids" name="user_ids" required>
+
+        <label for="total_bill_amount">Total Bill Amount:</label>
+        <input type="number" id="total_bill_amount" name="total_bill_amount" step="0.01" required>
+
+        <label for="tip_percentage">Tip Percentage (%):</label>
+        <input type="number" id="tip_percentage" name="tip_percentage" step="0.01" required>
+
+        <label for="tax_percentage">Tax Percentage (%):</label>
+        <input type="number" id="tax_percentage" name="tax_percentage" step="0.01" required>
+
+        <button type="submit">Split Bill</button>
+    </form>
+
+    <!-- Display Result -->
+    {% if result %}
+    <div class="result">
+        <h3>Result:</h3>
+        <ul>
+            {% for user_id, amount_per_user in result.items %}
+            <li>User {{ user_id }} needs to pay: {{ amount_per_user }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
