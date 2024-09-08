@@ -157,7 +157,3 @@ If you'd like to contribute to this project, feel free to open a pull request or
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-Is this format what you had in mind? Let me know if you'd like any further changes!
