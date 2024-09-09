@@ -5,7 +5,8 @@ from rest_framework.response import Response
 @api_view(['GET', 'POST'])
 def split_evenly(request):
     if request.method == 'POST':
-        user_ids = request.POST.get('user_ids', '').split(',')
+        #The split() method is the most common way to split a string into a list in Python. This method splits a string into substrings based on a delimiter and returns a list of these substrings. myString = "Hello world" myList = myString. split() print(myList) Output: ['Hello', 'world']
+        user_ids = request.POST.get('user_ids', '').split(',')  # 👈
         total_bill_amount = float(request.POST.get('total_bill_amount', 0))
 
         if not user_ids or total_bill_amount <= 0:
@@ -51,6 +52,8 @@ def split_unevenly(request):
 
         # Prepare result
         result = []
+        #The `zip` function in Python is a built-in function that allows you to aggregate elements from multiple iterables into a single iterable. It takes two or more iterables as input and returns an iterator that produces tuples containing elements from all the input iterables.
+        # ----------------------------👇
         for user_id, contribution in zip(user_ids, contributions):
             balance = round(contribution - required_payment_per_user, 2)
             result.append({
